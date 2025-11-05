@@ -1,0 +1,136 @@
+
+/* THEME TOKENS */
+:root {
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --bar-h: 48px;
+  --bottom-total: calc(var(--bar-h) + var(--safe-bottom));
+}
+/* Dark theme (default) */
+:root, html[data-theme="dark"] {
+  --bg: #0f1216;
+  --card:#171b22;
+  --text:#e7edf2;
+  --muted:#9fb0bf;
+  --accent:#6fb1ff;
+  --border:#242a33;
+  --btn:#222834;
+  --btn-border:#2c3442;
+  --input:#12161d;
+  --blur-bg: rgba(15,18,22,0.85);
+}
+/* Light theme */
+html[data-theme="light"] {
+  --bg: #ffffff;
+  --card:#f3f6fb;
+  --text:#0b1220;
+  --muted:#5a6b7a;
+  --accent:#3b82f6;
+  --border:#d9e1ec;
+  --btn:#ffffff;
+  --btn-border:#d9e1ec;
+  --input:#ffffff;
+  --blur-bg: rgba(255,255,255,0.9);
+}
+
+* { box-sizing: border-box; }
+html { font-size: 100%; }
+body { margin:0; background:var(--bg); color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Inter, Roboto, "Noto Sans", Arial, sans-serif; }
+#app { max-width: 720px; margin: 0 auto; padding: 16px; padding-bottom: calc(16px + var(--bottom-total)); }
+
+/* Topbar with responsive title */
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.title h1 { font-size: clamp(18px, 2.6vw, 22px); margin: 0 0 6px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: clamp(10px, 2vw, 12px); }
+
+#trackpad { width: 100%; height: clamp(36vh, 48vh, 60vh); touch-action: none; outline: none; }
+#trackpad:active { border-color: var(--accent); }
+#trackpad { -webkit-user-select: none; user-select: none; }
+
+/* Big L/R click row */
+.click-row { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(8px, 2vw, 12px); margin: 10px 0; }
+.click-row .btn { white-space: nowrap; }
+
+/* 5-per-row grid */
+.grid5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(6px, 1.6vw, 10px); margin: 10px 0; }
+
+/* Buttons */
+.btn { background: var(--btn); border:1px solid var(--btn-border); color: var(--text); padding: clamp(8px, 1.8vw, 12px) clamp(10px, 2vw, 12px); border-radius: 12px; font-size: clamp(12px, 2.2vw, 14px); width: 100%; }
+.btn:active { border-color: var(--accent); }
+.btn.big { padding: clamp(14px, 2.2vw, 18px) 12px; font-size: clamp(14px, 2.4vw, 16px); }
+.btn.grid { padding: clamp(12px, 2vw, 16px) clamp(6px, 1.6vw, 8px); font-size: clamp(12px, 2.4vw, 15px); }
+.btn.icon { padding: clamp(6px, 1.6vw, 8px); font-size: clamp(16px, 2.6vw, 18px); line-height: 1; min-width: 30px; display: grid; place-items: center; border-radius: 8px; }
+.theme-toggle { width: clamp(26px, 4.5vw, 32px); min-width: clamp(26px, 4.5vw, 32px); height: clamp(26px, 4.5vw, 32px); }
+
+/* Input + more button */
+.toolbar { display: grid; grid-template-columns: 1fr 44px; gap: 8px; align-items: center; margin-top: 6px; }
+#hiddenText { width: 100%; font-size: clamp(14px, 2.2vw, 16px); padding: 12px 14px; border: 1px dashed var(--btn-border); background: var(--input); color: var(--text); border-radius: 10px; }
+
+/* Modal */
+.overlay { position: fixed; inset:0; background: rgba(0,0,0,0.5); display: flex; align-items: flex-end; justify-content: center; padding: 12px; z-index: 1000; }
+html[data-theme="light"] .overlay { background: rgba(0,0,0,0.35); }
+.overlay.hidden { display: none; }
+.modal { width: 100%; max-width: 720px; }
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.modal-grid { margin: 8px 0 4px 0; }
+
+/* Sticky bottom bar */
+.bottombar {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  display: flex; align-items: center; justify-content: center;
+  min-height: var(--bar-h);
+  padding: 8px 12px calc(8px + var(--safe-bottom));
+  background: var(--blur-bg);
+  color: var(--muted);
+  border-top: 1px solid var(--btn-border);
+  text-decoration: none;
+  z-index: 900;
+  backdrop-filter: blur(6px);
+  font-size: clamp(11px, 1.8vw, 14px);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Tiny footer notes */
+.tiny { color: var(--muted); font-size: clamp(11px, 1.8vw, 12px); margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Super small screens: allow grid label wrap */
+@media (max-width: 340px) {
+  .btn.grid { white-space: normal; line-height: 1.1; }
+}
+
+
+/* === FINAL+ Tweaks (balanced spacing & larger theme toggle) === */
+
+/* Trackpad: add bottom breathing space */
+#trackpad { margin-bottom: clamp(14px, 2.8vh, 24px); }
+
+/* Footer spacing: visually one blank line above */
+footer { 
+  margin-top: clamp(14px, 2.8vh, 24px);
+  padding-top: clamp(8px, 1.6vh, 14px);
+  border-top: 1px dashed var(--btn-border);
+}
+
+/* Theme toggle: ~2x bigger but capped for tiny screens */
+.theme-toggle { 
+  width: clamp(40px, 9vw, 64px); 
+  min-width: clamp(40px, 9vw, 64px); 
+  height: clamp(40px, 9vw, 64px); 
+}
+.theme-toggle svg { width: 72%; height: 72%; }
+
+/* Topbar alignment: keep balance when toggle grows */
+.topbar { align-items: flex-start; }
+.title { flex: 1 1 auto; min-width: 0; }
+.theme-toggle { align-self: flex-start; }
+
+/* Increase vertical spacing between blocks on large screens slightly */
+.card + .card { margin-top: clamp(10px, 2vh, 16px); }
+.toolbar { margin-top: clamp(10px, 2vh, 16px); }
+
+
+/* === USER SPACING TWEAKS (theme toggle gap; trackpad+LR adjacent) === */
+.topbar { margin-bottom: clamp(14px, 3vh, 28px); } /* more space from theme toggle to trackpad */
+#trackpad { margin-bottom: 0 !important; }       /* remove gap below trackpad */
+#trackpad + .card { margin-top: 0 !important; }  /* make L/R card stick to trackpad */

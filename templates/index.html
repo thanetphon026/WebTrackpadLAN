@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>LAN Web Trackpad & Keyboard</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="title">
+        <h1>Web Trackpad & Keyboard</h1>
+      </div>
+      <button id="themeToggle" class="btn icon theme-toggle" aria-label="Toggle theme" title="Theme"></button>
+    </header>
+
+    <!-- Trackpad -->
+    <div id="trackpad" class="card" tabindex="0" aria-label="Trackpad area" aria-description="Move/scroll only; click with buttons below."></div>
+
+    <!-- Big L / R click row -->
+    <div class="card click-row">
+      <button id="left" class="btn big">Left Click (L)</button>
+      <button id="right" class="btn big">Right Click (R)</button>
+    </div>
+
+    <!-- 10-slot grid (5 per row) -->
+    <div class="card grid5">
+      <!-- Row 1 -->
+      <button data-key="Escape" class="btn grid">Esc</button>
+      <button data-key="Tab" class="btn grid">Tab</button>
+      <button data-key="Enter" class="btn grid">Enter</button>
+      <button data-key="Backspace" class="btn grid">⌫</button>
+      <button id="kb" class="btn grid">Keyboard</button>
+
+      <!-- Row 2: left, right, up, down + context -->
+      <button data-key="ArrowLeft" class="btn grid">←</button>
+      <button data-key="ArrowRight" class="btn grid">→</button>
+      <button data-key="ArrowUp" class="btn grid">↑</button>
+      <button data-key="ArrowDown" class="btn grid">↓</button>
+      <button id="context" class="btn grid">Context</button>
+    </div>
+
+    <!-- Text input + more -->
+    <div class="toolbar">
+      <input id="hiddenText" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type here…" />
+      <button id="moreBtn" class="btn icon" aria-label="More actions" title="More">⋮</button>
+    </div>
+
+    <footer>
+      <div>Move speed: <span id="moveSpeed">{{ move_speed }}</span> · Scroll speed: <span id="scrollSpeed">{{ scroll_speed }}</span></div>
+      <div class="tiny">Two-finger scroll on mobile.</div>
+    </footer>
+  </div>
+
+  <!-- Quick actions modal -->
+  <div id="overlay" class="overlay hidden">
+    <div class="modal card">
+      <div class="modal-head">
+        <strong>Quick Actions</strong>
+        <button id="closeModal" class="btn icon" aria-label="Close">✕</button>
+      </div>
+      <div class="grid5 modal-grid">
+        <button class="btn grid qa" data-macro="copy">Copy</button>
+        <button class="btn grid qa" data-macro="paste">Paste</button>
+        <button class="btn grid qa" data-macro="cut">Cut</button>
+        <button class="btn grid qa" data-macro="select_all">Select All</button>
+        <button class="btn grid qa" data-macro="undo">Undo</button>
+
+        <button class="btn grid qa" data-macro="redo">Redo</button>
+        <button class="btn grid qa" data-macro="screenshot">Screenshot</button>
+        <button class="btn grid qa" data-macro="snip">Snip</button>
+        <button class="btn grid qa" data-keydown="Control" data-keyup="Control">Hold Ctrl</button>
+        <button class="btn grid qa" data-keydown="Shift" data-keyup="Shift">Hold Shift</button>
+      </div>
+      <div class="tiny">Screenshot/Snip follow OS: Windows (PrtSc / Win+Shift+S), macOS (⌘⇧3 / ⌘⇧4).</div>
+    </div>
+  </div>
+
+  <!-- Sticky bottom bar -->
+  <a class="bottombar" href="https://github.com/Thanetphon026" target="_blank" rel="noopener">
+    &copy; 2025 พัฒนาโดย Thanetphon026
+  </a>
+
+  <script src="/static/main.js"></script>
+</body>
+</html>
